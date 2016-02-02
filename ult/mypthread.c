@@ -6,6 +6,8 @@ static mypthread_t currThread;
 static int countThreads = 1;
 
 //some helpers
+//this function is used for grabbing threads off the THREAD ARRAY "THREADPOOL" initially, when we only have
+// one thread thats just been created, might be able to do away with this function
 mypthread_t getUnusedThread() {
 
 	int i;
@@ -17,6 +19,8 @@ mypthread_t getUnusedThread() {
 	}
 	return NULL;
 }
+
+//same thing as other function, except its looking for threads with the status of being "PAUSED", again we can prolly combine the two 
 mypthread_t getPausedThread() {
 
 	int threadOffset;
@@ -38,6 +42,7 @@ mypthread_t getPausedThread() {
 	return NULL; //error, handled by caller
 }
 
+//This is the only thing I'm still a little unsure about, I think it has to do with how this code interacts with mtsort.c
 struct pthrarg
 {
     int *num;
